@@ -11,16 +11,15 @@ def create_matrix(img):
 
     colors = set()
     matrix_str = "static unsigned int sprite[] = {\n"
-
     for i in range(altura):
         matrix_str += "    "
         for j in range(largura):
             current_color = convert_rgb565(img[i,j])
 
             colors.add(current_color)
-            matrix_str += current_color + ", "
+            matrix_str += f"{current_color}, "
         matrix_str += "\n"
-    matrix_str += "}"
+    matrix_str += "}\n"
 
     colors_str = ""
     for idx, color in enumerate(list(colors)):

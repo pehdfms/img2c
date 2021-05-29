@@ -1,8 +1,6 @@
 import numpy as np
 import cv2 as cv
 
-img = cv.imread('input.bmp')
-
 def convert_rgb565(pixel):
     b, g, r = pixel[0:3]
     rgb = ((r & 0b11111000) << 8) | ((g & 0b11111100) << 3) | (b >> 3)
@@ -42,6 +40,15 @@ def create_matrix(img):
 
     return colors_str + dimensions_str + matrix_str
 
-with open("output.txt", "w") as f:
-    results = create_matrix(img)
-    f.write(results)
+def write_file(file_name, info):
+    with open(file_name, "w") as f:
+        f.write(info)
+
+def main():
+    img = cv.imread('input.bmp')
+    info = create_matrix(img)
+
+    write_file('output.txt', info)
+
+if __name__ == '__main__':
+    main()

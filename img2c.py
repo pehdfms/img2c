@@ -24,12 +24,13 @@ def create_matrix(img):
 
     colors_str = ""
     for idx, color in enumerate(list(colors)):
-        color_n = "C" + str(idx)
+        color_n = f"C{idx}"
         colors_str += f"#define {color_n} {color}\n"
         matrix_str = matrix_str.replace(color, color_n)
 
     colors_str += "\n"
-    dimensions_str = f"#define W {largura}\n#define H {altura}\n"
+    dimensions_str = f"#define W {largura}\n"
+    dimensions_str += f"#define H {altura}\n"
 
     return colors_str + dimensions_str + matrix_str
 
@@ -39,9 +40,9 @@ def write_file(file_name, info):
 
 def warn_bytes(img):
     altura, largura, _ = img.shape
-    byte_count = altura*largura
+    byte_count = altura * largura
 
-    print("Quantidade de Bytes utilizados: " + str(byte_count))
+    print(f"Quantidade de Bytes utilizados: {byte_count}")
 
     if byte_count > 2048:
         print("CUIDADO! IMAGEM PASSA DE 2KB!")

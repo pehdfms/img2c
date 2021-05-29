@@ -23,12 +23,6 @@ def create_matrix(img):
         matrix_str += "\n"
     matrix_str += "}"
 
-    byte_count = altura*largura
-    print(f"Quantidade de Bytes utilizados: {byte_count}")
-    if (byte_count > 2048):
-        print("CUIDADO! IMAGEM PASSA DE 2KB!")
-    print("Tome isto como uma guia, pois a quantidade exata de bytes usado pode variar dependendo das otimizacoes do compilador")
-
     colors_str = ""
     for idx, color in enumerate(list(colors)):
         color_n = "C" + str(idx)
@@ -44,10 +38,21 @@ def write_file(file_name, info):
     with open(file_name, "w") as f:
         f.write(info)
 
+def warn_bytes(img):
+    altura, largura, _ = img.shape
+    byte_count = altura*largura
+
+    print("Quantidade de Bytes utilizados: " + str(byte_count))
+
+    if byte_count > 2048:
+        print("CUIDADO! IMAGEM PASSA DE 2KB!")
+    print("Tome isto como uma guia, pois a quantidade exata de bytes usado pode variar dependendo das otimizacoes do compilador")
+
 def main():
     img = cv.imread('input.bmp')
     info = create_matrix(img)
 
+    warn_bytes(img)
     write_file('output.txt', info)
 
 if __name__ == '__main__':

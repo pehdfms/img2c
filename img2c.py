@@ -33,12 +33,12 @@ def create_matrix(img):
         print("CUIDADO! IMAGEM PASSA DE 2KB!")
     print("Tome isto como uma guia, pois a quantidade exata de bytes usado pode variar dependendo das otimizacoes do compilador")
 
-    count = 0
     colors_str = ""
-    for color in list(colors):
-        colors_str += f"#define C{count} {color}\n"
-        matrix_str = matrix_str.replace(color, f"C{count}")
-        count += 1
+    for idx, color in enumerate(list(colors)):
+        color_n = "C" + idx
+        colors_str += f"#define {color_n} {color}\n"
+        matrix_str = matrix_str.replace(color, color_n)
+
     colors_str += "\n"
     dimensions_str = f"#define W {largura}\n#define H {altura}\n"
 

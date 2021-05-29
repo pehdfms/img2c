@@ -10,5 +10,4 @@ O resultado sera salvo em um arquivo "output.txt"
 
 REQUERIMENTOS / REQUIREMENTS:
     - Python 3.x
-    - Numpy Library
     - OpenCV Library

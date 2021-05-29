@@ -4,9 +4,9 @@ import cv2 as cv
 img = cv.imread('input.bmp')
 
 def convert_rgb565(pixel):
-    r, g, b = pixel[2], pixel[1], pixel[0]
-
+    b, g, r = pixel[0:3]
     rgb = ((r & 0b11111000) << 8) | ((g & 0b11111100) << 3) | (b >> 3)
+
     return hex(rgb)
 
 def create_matrix(img):

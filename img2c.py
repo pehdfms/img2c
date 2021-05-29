@@ -33,7 +33,7 @@ def create_matrix(img):
 
     colors_str = ""
     for idx, color in enumerate(list(colors)):
-        color_n = "C" + idx
+        color_n = "C" + str(idx)
         colors_str += f"#define {color_n} {color}\n"
         matrix_str = matrix_str.replace(color, color_n)
 

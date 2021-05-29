@@ -15,7 +15,6 @@ def create_matrix(img):
     colors = set()
     matrix_str = "static unsigned int sprite[] = {\n"
 
-    byte_count = 0
     for i in range(altura):
         matrix_str += "    "
         for j in range(largura):
@@ -23,11 +22,10 @@ def create_matrix(img):
 
             colors.add(current_color)
             matrix_str += current_color + ", "
-
-            byte_count += 1
         matrix_str += "\n"
     matrix_str += "}"
 
+    byte_count = altura*largura
     print(f"Quantidade de Bytes utilizados: {byte_count}")
     if (byte_count > 2048):
         print("CUIDADO! IMAGEM PASSA DE 2KB!")

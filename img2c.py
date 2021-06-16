@@ -10,26 +10,26 @@ def create_matrix(img):
     altura, largura, _ = img.shape
 
     colors = set()
-    matrix_str = "static unsigned int sprite[] = {\n"
-    for i in range(altura):
-        matrix_str += "    "
-        for j in range(largura):
-            current_color = convert_rgb565(img[i,j])
+    matrix_str = f"static unsigned int sprite[{largura}][{altura}] = " + "{\n"
+    for i in range(largura):
+        matrix_str += "    { "
+        for j in range(altura):
+            current_color = convert_rgb565(img[j,i])
 
             colors.add(current_color)
             matrix_str += f"{current_color}, "
-        matrix_str += "\n"
+        matrix_str += "}\n"
     matrix_str += "}\n"
 
     colors_str = ""
     for idx, color in enumerate(list(colors)):
         color_n = f"C{idx}"
-        colors_str += f"#define {color_n} {color}\n"
+        colors_str += f"int {color_n} = {color};\n"
         matrix_str = matrix_str.replace(color, color_n)
 
     colors_str += "\n"
-    dimensions_str = f"#define W {largura}\n"
-    dimensions_str += f"#define H {altura}\n"
+    dimensions_str = f"int W = {largura};\n"
+    dimensions_str += f"int H = {altura};\n"
 
     return colors_str + dimensions_str + matrix_str
 

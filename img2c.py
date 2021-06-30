@@ -6,11 +6,16 @@ def convert_rgb565(pixel):
 
     return hex(rgb)
 
-def create_matrix(img):
+def create_matrix(img, progmem):
     altura, largura, _ = img.shape
 
     colors = set()
-    matrix_str = "const PROGMEM unsigned int sprite[] = {\n"
+    matrix_str = ""
+
+    if progmem:
+        matrix_str += "const PROGMEM unsigned int sprite[] = {\n"
+    else:
+        matrix_str += "const unsigned int sprite[] = {\n"
     for i in range(altura):
         matrix_str += "    "
         for j in range(largura):
@@ -24,7 +29,11 @@ def create_matrix(img):
     colors_str = ""
     for idx, color in enumerate(list(colors)):
         color_n = f"C{idx}"
-        colors_str += f"const PROGMEM unsigned int {color_n} = {color};\n"
+        colors_str = ""
+        if progmem:
+            colors_str += f"const PROGMEM unsigned int {color_n} = {color};\n"
+        else:
+            colors_str += f"const unsigned int {color_n} = {color};\n"
         matrix_str = matrix_str.replace(color, color_n)
 
     colors_str += "\n"
@@ -49,7 +58,10 @@ def warn_bytes(img):
 
 def main():
     img = cv.imread('input.bmp')
-    info = create_matrix(img)
+    print("Imagem encontrada")
+    progmem = int(input("Variaveis FLASH ou PROGMEM? (0 - FLASH, 1 - PROGMEM): "))
+
+    info = create_matrix(img, progmem)
 
     warn_bytes(img)
     write_file('output.txt', info)

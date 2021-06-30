@@ -10,7 +10,7 @@ def create_matrix(img):
     altura, largura, _ = img.shape
 
     colors = set()
-    matrix_str = "static unsigned int sprite[] = {\n"
+    matrix_str = "const PROGMEM unsigned int sprite[] = {\n"
     for i in range(altura):
         matrix_str += "    "
         for j in range(largura):
@@ -19,17 +19,17 @@ def create_matrix(img):
             colors.add(current_color)
             matrix_str += f"{current_color}, "
         matrix_str += "\n"
-    matrix_str += "}\n"
+    matrix_str += "};\n"
 
     colors_str = ""
     for idx, color in enumerate(list(colors)):
         color_n = f"C{idx}"
-        colors_str += f"#define {color_n} {color}\n"
+        colors_str += f"const PROGMEM unsigned int {color_n} = {color};\n"
         matrix_str = matrix_str.replace(color, color_n)
 
     colors_str += "\n"
-    dimensions_str = f"#define W {largura}\n"
-    dimensions_str += f"#define H {altura}\n"
+    dimensions_str = f"// LARGURA = {largura}\n"
+    dimensions_str += f"// ALTURA = {altura}\n"
 
     return colors_str + dimensions_str + matrix_str
 

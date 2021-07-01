@@ -54,13 +54,13 @@ def write_file(file_name, info):
     with open(file_name, "w") as f:
         f.write(info)
 
-def warn_bytes(img):
+def warn_bytes(img, progmem):
     altura, largura, _ = img.shape
     byte_count = altura * largura
 
     print(f"Quantidade de Bytes utilizados: {byte_count}")
 
-    if byte_count > 2048:
+    if byte_count > 2048 and progmem:
         print("CUIDADO! IMAGEM PASSA DE 2KB!")
     print("Tome isto como uma guia, pois a quantidade exata de bytes usado pode variar dependendo das otimizacoes do compilador")
 
@@ -76,7 +76,7 @@ def main():
 
     info = create_matrix(img, progmem)
 
-    warn_bytes(img)
+    warn_bytes(img, progmem)
     write_file('output.txt', info)
 
 if __name__ == '__main__':

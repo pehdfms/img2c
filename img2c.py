@@ -60,7 +60,7 @@ def warn_bytes(img, progmem):
 
     print(f"Quantidade de Bytes utilizados: {byte_count}")
 
-    if byte_count > 2048 and progmem:
+    if byte_count > 2048 and not progmem:
         print("CUIDADO! IMAGEM PASSA DE 2KB!")
     print("Tome isto como uma guia, pois a quantidade exata de bytes usado pode variar dependendo das otimizacoes do compilador")
 

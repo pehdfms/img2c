@@ -1,4 +1,12 @@
-import cv2 as cv
+import sys
+
+try:
+    import cv2 as cv
+except ImportError:
+    print("Falha ao encontrar biblioteca opencv")
+    print("Baixe em https://pypi.org/project/opencv-python/")
+    print("Saindo...")
+    sys.exit()
 
 def convert_rgb565(pixel):
     b, g, r = pixel[0:3]
@@ -58,6 +66,11 @@ def warn_bytes(img):
 
 def main():
     img = cv.imread('input.bmp')
+    if img is None:
+        print("Nao foi encontrado um arquivo input.bmp na mesma pasta")
+        print("Saindo...")
+        sys.exit()
+
     print("Imagem encontrada")
     progmem = int(input("Variaveis FLASH ou PROGMEM? (0 - FLASH, 1 - PROGMEM): "))
 

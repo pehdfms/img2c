@@ -14,7 +14,7 @@ def convert_rgb565(pixel):
 
     return hex(rgb)
 
-def create_matrix(img, progmem):
+def create_matrix(img, progmem, start_idx):
     altura, largura, _ = img.shape
 
     colors = set()
@@ -36,7 +36,8 @@ def create_matrix(img, progmem):
 
     colors_str = ""
     for idx, color in enumerate(list(colors)):
-        color_n = f"C{idx}"
+        cur_idx = idx+start_idx
+        color_n = f"C{cur_idx}"
         if progmem:
             colors_str += f"const PROGMEM unsigned int {color_n} = {color};\n"
         else:
@@ -72,8 +73,9 @@ def main():
 
     print("Imagem encontrada")
     progmem = int(input("Variaveis FLASH ou PROGMEM? (0 - FLASH, 1 - PROGMEM): "))
+    start_idx = int(input("Qual numero de cor quer comecar? (Se ja usou o script, coloque um a mais do que o valor mais alto de C no seu arquivo, se nao, 0): "))
 
-    info = create_matrix(img, progmem)
+    info = create_matrix(img, progmem, start_idx)
 
     warn_bytes(img, progmem)
     write_file('output.txt', info)

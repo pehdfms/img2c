@@ -37,7 +37,6 @@ def create_matrix(img, progmem):
     colors_str = ""
     for idx, color in enumerate(list(colors)):
         color_n = f"C{idx}"
-        colors_str = ""
         if progmem:
             colors_str += f"const PROGMEM unsigned int {color_n} = {color};\n"
         else:
